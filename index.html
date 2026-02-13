@@ -18,9 +18,7 @@
         .flex-active { display: flex !important; }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
-
-        /* Style pou Modal la */
-        #bet-modal { backdrop-filter: blur(8px); }
+        #bet-modal { backdrop-filter: blur(10px); background: rgba(0,0,0,0.7); }
     </style>
 </head>
 <body>
@@ -32,7 +30,6 @@
                 <h1 class="text-2xl font-black italic text-blue-500 tracking-tighter">PRIME GAMING HT</h1>
                 <p id="mode-title" class="text-gray-500 text-[10px] font-bold uppercase mt-1 tracking-widest">Koneksyon</p>
             </div>
-
             <div class="space-y-4">
                 <div id="signup-fields" class="hidden space-y-4">
                     <input type="text" id="username" placeholder="Username" class="w-full p-4 rounded-2xl input-field text-sm">
@@ -40,10 +37,8 @@
                 </div>
                 <input type="email" id="email" placeholder="Email" class="w-full p-4 rounded-2xl input-field text-sm">
                 <input type="password" id="password" placeholder="Modpas" class="w-full p-4 rounded-2xl input-field text-sm">
-
-                <button id="main-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black shadow-lg transition-all">KONEKTE</button>
-                
-                <p class="text-center text-xs text-gray-500">
+                <button id="main-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black shadow-lg">KONEKTE</button>
+                <p class="text-center text-xs text-gray-500 mt-4">
                     <span id="toggle-text">Poko gen kont?</span> 
                     <button id="toggle-btn" class="text-blue-500 font-bold ml-1">Kreyel isit la</button>
                 </p>
@@ -56,15 +51,15 @@
             <h1 class="text-xl font-black italic text-blue-500">PRIME GAMING</h1>
             <div class="bg-blue-900/30 px-4 py-1.5 rounded-full border border-blue-500/50 flex items-center gap-2">
                 <span id="user-balance" class="font-bold text-green-400">0</span>
-                <span class="text-[10px] font-bold">HTG</span>
+                <span class="text-[10px] font-bold text-white">HTG</span>
             </div>
         </header>
 
         <div class="mt-4 px-4 overflow-x-auto no-scrollbar flex gap-4">
-            <div class="text-center min-w-[110px]"><img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770996847/e23ffb9c2e863d2fb034906c15d1bf98_pxlul2.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800"><p class="text-[10px] font-bold mt-2">Free Fire</p></div>
-            <div class="text-center min-w-[110px]"><img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997001/c74e5bf57d250c1bfc7b0d96f39f42c7_wkpgqd.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800"><p class="text-[10px] font-bold mt-2">CODM</p></div>
-            <div class="text-center min-w-[110px]"><img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997081/c7072f4fca2663a155a55373d64a37be_f7vp1l.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800"><p class="text-[10px] font-bold mt-2">PUBG</p></div>
-            <div class="text-center min-w-[110px]"><img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997700/ebba961300e1bee5773206a40657a81e_sr9vu9.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800"><p class="text-[10px] font-bold mt-2">DLS</p></div>
+            <div class="text-center min-w-[110px]"><img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770996847/e23ffb9c2e863d2fb034906c15d1bf98_pxlul2.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800 shadow-md"></div>
+            <div class="text-center min-w-[110px]"><img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997001/c74e5bf57d250c1bfc7b0d96f39f42c7_wkpgqd.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800 shadow-md"></div>
+            <div class="text-center min-w-[110px]"><img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997081/c7072f4fca2663a155a55373d64a37be_f7vp1l.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800 shadow-md"></div>
+            <div class="text-center min-w-[110px]"><img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997700/ebba961300e1bee5773206a40657a81e_sr9vu9.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800 shadow-md"></div>
         </div>
 
         <div class="mt-8 px-4">
@@ -73,19 +68,18 @@
         </div>
     </section>
 
-    <div id="bet-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60">
+    <div id="bet-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
         <div class="glass-card w-full max-w-sm p-6 rounded-[2.5rem] animate__animated animate__zoomIn">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-black italic text-blue-500">LAGE YON DEFI</h2>
-                <button onclick="toggleModal('bet-modal')" class="text-gray-400 hover:text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                <button id="close-modal" class="text-gray-400 hover:text-white bg-white/5 p-2 rounded-full">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
-
             <div class="space-y-4">
                 <div>
-                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-2">Chwazi Jwèt la</label>
-                    <select id="bet-game" class="w-full p-4 mt-1 rounded-2xl input-field text-sm appearance-none">
+                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-2">Jwèt</label>
+                    <select id="bet-game" class="w-full p-4 mt-1 rounded-2xl input-field text-sm">
                         <option value="Free Fire">Free Fire</option>
                         <option value="CODM">CODM</option>
                         <option value="PUBG">PUBG</option>
@@ -93,33 +87,27 @@
                         <option value="Blood Strike">Blood Strike</option>
                     </select>
                 </div>
-
                 <div>
-                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-2">Montan Pari (Min 100 HTG)</label>
-                    <input type="number" id="bet-amount" placeholder="100" min="100" class="w-full p-4 mt-1 rounded-2xl input-field text-sm">
+                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-2">Montan (Min 100 HTG)</label>
+                    <input type="number" id="bet-amount" placeholder="100" class="w-full p-4 mt-1 rounded-2xl input-field text-sm">
                 </div>
-
                 <div>
-                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-2">Kijan pou moun nan genyen?</label>
-                    <textarea id="bet-rules" placeholder="Ex: 1v1 Sniper sèlman, premye ki fè 10 kills..." class="w-full p-4 mt-1 rounded-2xl input-field text-sm h-24"></textarea>
+                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-2">Règ match la</label>
+                    <textarea id="bet-rules" placeholder="Ex: 1v1 Sniper, 10 kills..." class="w-full p-4 mt-1 rounded-2xl input-field text-sm h-20"></textarea>
                 </div>
-
-                <button id="confirm-bet-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black shadow-lg shadow-blue-900/40 transition-all active:scale-95">PUBLYE PARI A</button>
-                <p class="text-[9px] text-center text-gray-500 italic">Lè w pibliye, kòb la ap bloke nan Escrow jiskaske match la fini.</p>
+                <button id="confirm-bet-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black shadow-lg">PUBLYE PARI A</button>
             </div>
         </div>
     </div>
 
     <nav id="bottom-nav" class="hidden fixed bottom-0 left-0 right-0 h-20 bg-[#0b0e14] border-t border-gray-800 flex justify-around items-center px-6 z-50">
-        <button onclick="switchPage('home-page')" id="nav-home" class="flex flex-col items-center gap-1 nav-active transition-all">
+        <button onclick="switchPage('home-page')" class="flex flex-col items-center gap-1 nav-active">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             <span class="text-[10px] font-bold uppercase">Akèy</span>
         </button>
-        
-        <button onclick="toggleModal('bet-modal')" class="bg-blue-600 w-14 h-14 rounded-full flex items-center justify-center -translate-y-6 shadow-lg shadow-blue-900/50 border-4 border-[#0b0e14] active:scale-90 transition-all">
+        <button id="open-bet-modal" class="bg-blue-600 w-14 h-14 rounded-full flex items-center justify-center -translate-y-6 shadow-lg border-4 border-[#0b0e14]">
             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"/></svg>
         </button>
-
         <button onclick="signOutUser()" class="flex flex-col items-center gap-1 text-gray-500">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
             <span class="text-[10px] font-bold uppercase">Sòti</span>
@@ -129,7 +117,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getDatabase, ref, set, onValue, push, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCHVG_0BCd0V_lFSmg3_2qyC5rKclG-b0M",
@@ -147,7 +135,7 @@
         let currentUserData = null;
         let isSignup = false;
 
-        // TCHEKE KONEKSYON
+        // AUTH CHECK
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 if (user.emailVerified) {
@@ -156,7 +144,7 @@
                     loadChallenges();
                 } else {
                     switchPage('auth-page');
-                    alert("Tanpri verifie email ou!");
+                    alert("Verifie email ou!");
                     signOut(auth);
                 }
             } else {
@@ -164,31 +152,30 @@
             }
         });
 
-        // MODAL TOGGLE
-        window.toggleModal = (id) => {
-            const modal = document.getElementById(id);
-            modal.classList.toggle('hidden');
-        };
+        // MODAL LOGIC
+        const modal = document.getElementById('bet-modal');
+        document.getElementById('open-bet-modal').onclick = () => modal.classList.remove('hidden');
+        document.getElementById('close-modal').onclick = () => modal.classList.add('hidden');
 
-        // LAGE PARI (LOGIK FIREBASE)
+        // PUBLYE PARI
         document.getElementById('confirm-bet-btn').onclick = async () => {
             const game = document.getElementById('bet-game').value;
             const amount = parseInt(document.getElementById('bet-amount').value);
             const rules = document.getElementById('bet-rules').value;
 
-            if (!amount || amount < 100) return alert("Minimum pari a se 100 HTG!");
-            if (!rules) return alert("Tanpri esplike règleman match la!");
-            if (currentUserData.balance < amount) return alert("Kòb ou pa ase pou pari sa a!");
-
-            const user = auth.currentUser;
-            const betRef = ref(db, 'challenges');
-            const newBetKey = push(betRef).key;
+            if (!amount || amount < 100) return alert("Min 100 HTG!");
+            if (!rules) return alert("Mete règ yo!");
+            
+            // Tcheke balans
+            if (!currentUserData || currentUserData.balance < amount) {
+                return alert("Kòb ou pa ase! Balans ou: " + (currentUserData ? currentUserData.balance : 0) + " HTG");
+            }
 
             try {
-                // Diminye kòb nan balans lan epi kreye pari a (Tranzaksyon Sekirize)
-                const userRef = ref(db, `users/${user.uid}/balance`);
-                
-                // Kreye pari a nan Database
+                const user = auth.currentUser;
+                const newBetKey = push(ref(db, 'challenges')).key;
+
+                // 1. Sove Pari a
                 await set(ref(db, `challenges/${newBetKey}`), {
                     creator_id: user.uid,
                     creator_name: currentUserData.username,
@@ -199,12 +186,11 @@
                     timestamp: serverTimestamp()
                 });
 
-                // Soustrè kòb la nan balans lan
-                await set(userRef, currentUserData.balance - amount);
+                // 2. Retire kòb nan balans lan
+                await set(ref(db, `users/${user.uid}/balance`), currentUserData.balance - amount);
 
-                alert("Pari ou a pibliye ak siksè!");
-                toggleModal('bet-modal');
-                // Netwaye fòm lan
+                alert("Pari lage!");
+                modal.classList.add('hidden');
                 document.getElementById('bet-amount').value = "";
                 document.getElementById('bet-rules').value = "";
             } catch (e) {
@@ -212,7 +198,7 @@
             }
         };
 
-        // UI LOGIC
+        // UI FUNCTIONS
         window.switchPage = (pageId) => {
             document.querySelectorAll('.page').forEach(p => {
                 p.classList.remove('page-active', 'flex-active');
@@ -232,34 +218,31 @@
             isSignup = !isSignup;
             document.getElementById('signup-fields').classList.toggle('hidden');
             document.getElementById('mode-title').innerText = isSignup ? "Kreyasyon Kont" : "Koneksyon";
-            document.getElementById('main-btn').innerText = isSignup ? "VÈRIFYE EMAIL" : "KONEKTE";
-            document.getElementById('toggle-text').innerText = isSignup ? "Gen kont deja?" : "Poko gen kont?";
-            document.getElementById('toggle-btn').innerText = isSignup ? "Konekte" : "Kreyel isit la";
+            document.getElementById('main-btn').innerText = isSignup ? "VÈRIFYE" : "KONEKTE";
         };
 
         document.getElementById('main-btn').onclick = async () => {
             const email = document.getElementById('email').value;
             const pass = document.getElementById('password').value;
-            if (!isSignup) {
-                try { await signInWithEmailAndPassword(auth, email, pass); } catch (e) { alert("Email/Modpas pa bon."); }
-            } else {
+            if (isSignup) {
                 const username = document.getElementById('username').value;
                 const phone = document.getElementById('phone').value;
-                if (!username || !phone) return alert("Ranpli tout chan yo!");
                 try {
                     const res = await createUserWithEmailAndPassword(auth, email, pass);
                     await sendEmailVerification(res.user);
-                    await set(ref(db, `users/${res.user.uid}`), { username, email, phone, balance: 0, stats: { wins: 0, losses: 0 } });
+                    await set(ref(db, `users/${res.user.uid}`), { username, email, phone, balance: 0 });
                     alert("Link verifikasyon voye!");
                     signOut(auth);
                 } catch (e) { alert(e.message); }
+            } else {
+                try { await signInWithEmailAndPassword(auth, email, pass); } catch (e) { alert("Erè!"); }
             }
         };
 
         function loadUserData(uid) {
             onValue(ref(db, `users/${uid}`), (snap) => {
                 currentUserData = snap.val();
-                if (currentUserData) document.getElementById('user-balance').innerText = currentUserData.balance.toLocaleString();
+                if (currentUserData) document.getElementById('user-balance').innerText = currentUserData.balance;
             });
         }
 
@@ -273,19 +256,16 @@
                         const c = data[id];
                         if (c.status === "open") {
                             list.innerHTML += `
-                            <div class="glass-card p-4 rounded-3xl flex justify-between items-center border-l-4 border-blue-500 mb-4 animate__animated animate__fadeInUp">
+                            <div class="glass-card p-4 rounded-3xl flex justify-between items-center border-l-4 border-blue-500 animate__animated animate__fadeInUp">
                                 <div>
-                                    <h4 class="font-black text-blue-400 italic uppercase">${c.game}</h4>
-                                    <p class="text-[10px] text-gray-400 font-bold">Mèt: ${c.creator_name}</p>
-                                    <p class="text-[9px] text-gray-500 max-w-[150px] truncate">${c.rules}</p>
-                                    <p class="text-lg font-black mt-1 text-green-400">${c.bet_amount} HTG</p>
+                                    <h4 class="font-black text-blue-400 italic">${c.game}</h4>
+                                    <p class="text-[10px] text-gray-500 uppercase">Pa: ${c.creator_name}</p>
+                                    <p class="text-lg font-black text-green-400">${c.bet_amount} HTG</p>
                                 </div>
-                                <button onclick="alert('Lojik aksepte a ap prepare nan pwochen etap la!')" class="bg-blue-600 px-6 py-2 rounded-xl text-xs font-black uppercase shadow-lg shadow-blue-900/30">Rejwenn</button>
+                                <button class="bg-blue-600 px-4 py-2 rounded-xl text-[10px] font-black uppercase">Rejwenn</button>
                             </div>`;
                         }
                     });
-                } else {
-                    list.innerHTML = `<p class="text-center opacity-50 italic py-10">Pa gen pari disponib pou kounye a...</p>`;
                 }
             });
         }
