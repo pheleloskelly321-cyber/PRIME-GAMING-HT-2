@@ -3,76 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRIME GAMING HT - Login</title>
+    <title>PRIME GAMING HT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
-        body { background-color: #0b0e14; color: white; font-family: 'Inter', sans-serif; }
-        .glass-card { background: rgba(22, 27, 34, 0.9); border: 1px solid rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        body { background-color: #0b0e14; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .glass-card { background: rgba(22, 27, 34, 0.9); border: 1px solid rgba(59, 130, 246, 0.3); }
         .input-field { background: #000; border: 1px solid #333; transition: all 0.3s ease; }
-        .input-field:focus { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); outline: none; }
+        .input-field:focus { border-color: #3b82f6; outline: none; }
         
-        /* Klas pou kache/montre ak animasyon */
-        .mode-transition { display: none; }
-        .mode-show { display: block !important; }
-        
-        .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); transition: all 0.3s; }
-        .btn-primary:hover { filter: brightness(1.2); transform: translateY(-2px); }
-        .btn-primary:active { transform: translateY(0); }
+        /* Navigasyon */
+        .nav-active { color: #3b82f6; transform: scale(1.1); }
+        .page { display: none; min-height: 100vh; }
+        .page-active { display: block !important; }
+
+        /* Jwèt Carousel */
+        .game-card { min-width: 120px; transition: transform 0.3s; }
+        .game-card:active { transform: scale(0.9); }
+
+        /* Estil pou Custom Scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-thumb { background: #1d4ed8; border-radius: 10px; }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-black to-black">
+<body>
 
-    <div class="glass-card p-8 rounded-[2rem] w-full max-w-md animate__animated animate__fadeIn">
-        <div class="text-center mb-8">
-            <div class="relative inline-block">
+    <section id="auth-page" class="page page-active flex items-center justify-center p-4 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-black to-black">
+        <div class="glass-card p-8 rounded-[2rem] w-full max-w-md animate__animated animate__fadeIn">
+            <div class="text-center mb-8">
                 <img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997001/c74e5bf57d250c1bfc7b0d96f39f42c7_wkpgqd.jpg" 
-                     class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.5)] object-cover animate__animated animate__pulse animate__infinite">
+                     class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-blue-500 shadow-lg object-cover">
+                <h1 class="text-2xl font-black italic text-blue-500 tracking-tighter">PRIME GAMING HT</h1>
+                <p id="mode-title" class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mt-1">Koneksyon</p>
             </div>
-            <h1 class="text-3xl font-black italic text-blue-500 tracking-tighter">PRIME GAMING HT</h1>
-            <p id="mode-title" class="text-gray-500 text-xs font-bold uppercase tracking-widest mt-1">Koneksyon</p>
+
+            <div class="space-y-4">
+                <div id="signup-fields" class="hidden space-y-4 animate__animated animate__fadeInDown">
+                    <input type="text" id="username" placeholder="Username" class="w-full p-4 rounded-2xl input-field text-sm">
+                    <input type="text" id="phone" placeholder="Telefòn" class="w-full p-4 rounded-2xl input-field text-sm">
+                </div>
+                <input type="email" id="email" placeholder="Email" class="w-full p-4 rounded-2xl input-field text-sm">
+                <input type="password" id="password" placeholder="Modpas" class="w-full p-4 rounded-2xl input-field text-sm">
+
+                <div id="otp-area" class="hidden animate__animated animate__jackInTheBox bg-blue-900/20 p-4 rounded-2xl">
+                    <input type="text" id="otp-input" maxlength="6" placeholder="000000" class="w-full bg-transparent text-center font-black text-2xl tracking-[0.5em]">
+                </div>
+
+                <button onclick="handleMainAction()" id="main-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black shadow-lg transition-all">KONEKTE</button>
+                
+                <p class="text-center text-xs text-gray-500">
+                    <span id="toggle-text">Poko gen kont?</span> 
+                    <button onclick="toggleMode()" id="toggle-btn" class="text-blue-500 font-bold ml-1">Kreyel isit la</button>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="home-page" class="page pb-24">
+        <header class="p-4 flex justify-between items-center sticky top-0 bg-[#0b0e14]/90 backdrop-blur-md z-50">
+            <h1 class="text-xl font-black italic text-blue-500">PRIME GAMING HT</h1>
+            <div class="bg-blue-900/30 px-4 py-1.5 rounded-full border border-blue-500/50 flex items-center gap-2">
+                <span id="user-balance" class="font-bold text-green-400">0</span>
+                <span class="text-[10px] font-bold">HTG</span>
+            </div>
+        </header>
+
+        <div class="mt-4 px-4">
+            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 ml-1">Jwèt Disponib</h2>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                <div class="game-card text-center">
+                    <img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770996847/e23ffb9c2e863d2fb034906c15d1bf98_pxlul2.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800 shadow-lg">
+                    <p class="text-[10px] font-bold mt-2">Free Fire</p>
+                </div>
+                <div class="game-card text-center">
+                    <img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997001/c74e5bf57d250c1bfc7b0d96f39f42c7_wkpgqd.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800 shadow-lg">
+                    <p class="text-[10px] font-bold mt-2">CODM</p>
+                </div>
+                <div class="game-card text-center">
+                    <img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997081/c7072f4fca2663a155a55373d64a37be_f7vp1l.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800 shadow-lg">
+                    <p class="text-[10px] font-bold mt-2">PUBG</p>
+                </div>
+                <div class="game-card text-center">
+                    <img src="https://res.cloudinary.com/dcpcbglsw/image/upload/v1770997367/9476bb2a4d3910f6c63819d27abd24ef_fueziq.jpg" class="w-28 h-36 object-cover rounded-2xl border border-gray-800 shadow-lg">
+                    <p class="text-[10px] font-bold mt-2">Blood Strike</p>
+                </div>
+            </div>
         </div>
 
-        <div class="space-y-4">
-            <div id="signup-fields" class="mode-transition space-y-4 animate__animated animate__fadeInDown">
-                <div class="space-y-1">
-                    <label class="text-[10px] font-bold text-blue-400 ml-2 uppercase">Username</label>
-                    <input type="text" id="username" placeholder="Chwazi yon non" class="w-full p-4 rounded-2xl input-field">
-                </div>
-                <div class="space-y-1">
-                    <label class="text-[10px] font-bold text-blue-400 ml-2 uppercase">Telefòn</label>
-                    <input type="text" id="phone" placeholder="509 XXXX XXXX" class="w-full p-4 rounded-2xl input-field">
+        <div class="mt-8 px-4">
+            <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 ml-1">Pari ki Disponib</h2>
+            <div id="challenges-list" class="space-y-4">
+                <div class="p-4 glass-card rounded-2xl flex items-center justify-center border-dashed border-gray-700">
+                    <p class="text-gray-500 text-xs italic">Pa gen pari pou kounye a...</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="space-y-1">
-                <label class="text-[10px] font-bold text-blue-400 ml-2 uppercase">Email</label>
-                <input type="email" id="email" placeholder="eg: gamer@gmail.com" class="w-full p-4 rounded-2xl input-field">
-            </div>
+    <nav id="bottom-nav" class="hidden fixed bottom-0 left-0 right-0 h-20 bg-[#0b0e14] border-t border-gray-800 flex justify-around items-center px-6 z-50">
+        <button onclick="switchPage('home-page')" class="flex flex-col items-center gap-1 nav-active transition-all">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span class="text-[10px] font-bold">Akèy</span>
+        </button>
+        
+        <button onclick="openCreatePari()" class="bg-blue-600 w-14 h-14 rounded-full flex items-center justify-center -translate-y-6 shadow-lg shadow-blue-900/50 border-4 border-[#0b0e14] active:scale-90 transition-all">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"/></svg>
+        </button>
 
-            <div class="space-y-1">
-                <label class="text-[10px] font-bold text-blue-400 ml-2 uppercase">Modpas</label>
-                <input type="password" id="password" placeholder="••••••••" class="w-full p-4 rounded-2xl input-field">
-            </div>
+        <button onclick="switchPage('profile-page')" class="flex flex-col items-center gap-1 text-gray-500 transition-all">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <span class="text-[10px] font-bold">Pwofil</span>
+        </button>
+    </nav>
 
-            <div id="otp-area" class="mode-transition animate__animated animate__jackInTheBox">
-                <div class="bg-blue-900/20 border border-blue-500/30 p-4 rounded-2xl text-center">
-                    <p class="text-xs text-blue-300 mb-3 font-bold">Antre kòd verifikasyon an</p>
-                    <input type="text" id="otp-input" maxlength="6" placeholder="000000" 
-                           class="w-full bg-black/50 p-3 rounded-xl border border-blue-500 text-center font-black text-2xl tracking-[0.5em] text-white">
+    <div id="pari-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-6">
+        <div class="glass-card w-full max-w-sm rounded-3xl p-6 animate__animated animate__zoomIn">
+            <h3 class="text-xl font-black mb-4">Lage yon Defi</h3>
+            <div class="space-y-4">
+                <select id="pari-game" class="w-full p-4 rounded-xl input-field text-sm">
+                    <option value="Free Fire">Free Fire</option>
+                    <option value="CODM">CODM</option>
+                    <option value="PUBG">PUBG</option>
+                    <option value="Blood Strike">Blood Strike</option>
+                </select>
+                <input type="number" id="pari-amount" placeholder="Montan (HTG)" class="w-full p-4 rounded-xl input-field text-sm">
+                <textarea id="pari-desc" placeholder="Règles (ex: 1v1 Sniper)" class="w-full p-4 rounded-xl input-field text-sm h-24"></textarea>
+                <div class="flex gap-2">
+                    <button onclick="closeCreatePari()" class="flex-1 bg-gray-800 py-3 rounded-xl font-bold">Anile</button>
+                    <button onclick="confirmCreatePari()" class="flex-1 bg-blue-600 py-3 rounded-xl font-bold">Lage l</button>
                 </div>
-            </div>
-
-            <button onclick="handleMainAction()" id="main-btn" class="w-full btn-primary py-4 rounded-2xl font-black text-lg shadow-lg mt-4">
-                KONEKTE
-            </button>
-
-            <div class="text-center pt-2">
-                <p class="text-sm text-gray-500">
-                    <span id="toggle-text">Poko gen kont?</span> 
-                    <button onclick="toggleMode()" id="toggle-btn" class="text-blue-500 font-black hover:text-blue-400 transition-colors ml-1">Kreyel isit la</button>
-                </p>
             </div>
         </div>
     </div>
@@ -80,31 +140,29 @@
     <script type="module" src="app.js"></script>
 
     <script>
-        // Fonksyon pou UI a sèlman (Lojik la nan app.js)
+        // UI SWITCH LOGIC
         let isSignup = false;
         window.toggleMode = () => {
             isSignup = !isSignup;
-            const fields = document.getElementById('signup-fields');
-            const btn = document.getElementById('main-btn');
-            const text = document.getElementById('toggle-text');
-            const btnToggle = document.getElementById('toggle-btn');
-            const title = document.getElementById('mode-title');
-
-            if (isSignup) {
-                fields.classList.add('mode-show');
-                btn.innerText = "ENSKRI";
-                text.innerText = "Gen kont deja?";
-                btnToggle.innerText = "Konekte";
-                title.innerText = "Kreyasyon Kont";
-            } else {
-                fields.classList.remove('mode-show');
-                btn.innerText = "KONEKTE";
-                text.innerText = "Poko gen kont?";
-                btnToggle.innerText = "Kreyel isit la";
-                title.innerText = "Koneksyon";
-                document.getElementById('otp-area').classList.remove('mode-show');
-            }
+            document.getElementById('signup-fields').classList.toggle('hidden');
+            document.getElementById('mode-title').innerText = isSignup ? "Kreyasyon Kont" : "Koneksyon";
+            document.getElementById('main-btn').innerText = isSignup ? "VÈRIFYE EMAIL" : "KONEKTE";
+            document.getElementById('toggle-text').innerText = isSignup ? "Gen kont deja?" : "Poko gen kont?";
+            document.getElementById('toggle-btn').innerText = isSignup ? "Konekte" : "Kreyel isit la";
         };
+
+        window.switchPage = (pageId) => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('page-active'));
+            document.getElementById(pageId).classList.add('page-active');
+            
+            // Update Nav Icons colors
+            const navs = document.querySelectorAll('nav button');
+            navs.forEach(btn => btn.classList.remove('nav-active'));
+            // Senp lojik pou koulè ikon yo
+        };
+
+        window.openCreatePari = () => document.getElementById('pari-modal').classList.remove('hidden');
+        window.closeCreatePari = () => document.getElementById('pari-modal').classList.add('hidden');
     </script>
 </body>
 </html>
