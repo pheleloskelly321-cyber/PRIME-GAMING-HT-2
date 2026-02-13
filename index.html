@@ -11,10 +11,19 @@
         .glass-card { background: rgba(22, 27, 34, 0.9); border: 1px solid rgba(59, 130, 246, 0.3); }
         .input-field { background: #000; border: 1px solid #333; transition: all 0.3s ease; color: white; }
         .input-field:focus { border-color: #3b82f6; outline: none; }
-        .nav-active { color: #3b82f6 !important; }
-        .page { display: none; min-height: 100vh; }
+        
+        /* Navigasyon ak Paj */
+        .page { display: none; min-height: 100vh; width: 100%; }
+        /* Lè yon paj aktif, nou fòse lòt yo disparèt nèt */
         .page-active { display: block !important; }
+        #auth-page.page-active { display: flex !important; } /* Pou login rete nan mitan */
+        
+        .nav-active { color: #3b82f6 !important; transform: scale(1.1); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        /* Animasyon pou bouton */
+        .btn-primary { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-primary:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
@@ -28,14 +37,14 @@
             </div>
 
             <div class="space-y-4">
-                <div id="signup-fields" class="hidden space-y-4">
+                <div id="signup-fields" class="hidden space-y-4 animate__animated animate__fadeInDown">
                     <input type="text" id="username" placeholder="Username" class="w-full p-4 rounded-2xl input-field text-sm">
                     <input type="text" id="phone" placeholder="Telefòn" class="w-full p-4 rounded-2xl input-field text-sm">
                 </div>
                 <input type="email" id="email" placeholder="Email" class="w-full p-4 rounded-2xl input-field text-sm">
                 <input type="password" id="password" placeholder="Modpas" class="w-full p-4 rounded-2xl input-field text-sm">
 
-                <button id="main-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black shadow-lg transition-all">KONEKTE</button>
+                <button id="main-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black shadow-lg btn-primary">KONEKTE</button>
                 
                 <p class="text-center text-xs text-gray-500">
                     <span id="toggle-text">Poko gen kont?</span> 
@@ -50,7 +59,7 @@
             <h1 class="text-xl font-black italic text-blue-500">PRIME GAMING</h1>
             <div class="bg-blue-900/30 px-4 py-1.5 rounded-full border border-blue-500/50 flex items-center gap-2">
                 <span id="user-balance" class="font-bold text-green-400">0</span>
-                <span class="text-[10px] font-bold">HTG</span>
+                <span class="text-[10px] font-bold text-gray-400">HTG</span>
             </div>
         </header>
 
@@ -84,24 +93,18 @@
         </div>
     </section>
 
-    <section id="profile-page" class="page p-6">
-        <h2 class="text-xl font-bold">Pwofil Mwen</h2>
-        <div id="profile-data" class="mt-4 glass-card p-6 rounded-3xl">
-            </div>
-    </section>
-
-    <nav id="bottom-nav" class="hidden fixed bottom-0 left-0 right-0 h-20 bg-[#0b0e14] border-t border-gray-800 flex justify-around items-center px-6 z-50">
+    <nav id="bottom-nav" class="hidden fixed bottom-0 left-0 right-0 h-20 bg-[#0b0e14]/95 border-t border-gray-800 flex justify-around items-center px-6 z-50 backdrop-blur-lg">
         <button onclick="switchPage('home-page')" id="nav-home" class="flex flex-col items-center gap-1 nav-active transition-all">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             <span class="text-[10px] font-bold uppercase">Akèy</span>
         </button>
         
-        <button onclick="alert('Kreyasyon pari ap vini nan yon pwochen update!')" class="bg-blue-600 w-14 h-14 rounded-full flex items-center justify-center -translate-y-6 shadow-lg shadow-blue-900/50 border-4 border-[#0b0e14]">
+        <button onclick="alert('Update sa ap vini bento!')" class="bg-blue-600 w-14 h-14 rounded-full flex items-center justify-center -translate-y-6 shadow-lg shadow-blue-900/50 border-4 border-[#0b0e14] active:scale-90">
             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"/></svg>
         </button>
 
-        <button onclick="signOutUser()" class="flex flex-col items-center gap-1 text-gray-500 transition-all">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <button onclick="window.signOutUser()" class="flex flex-col items-center gap-1 text-gray-500 transition-all">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
             <span class="text-[10px] font-bold uppercase">Sòti</span>
         </button>
     </nav>
@@ -109,12 +112,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { 
-            getAuth, 
-            signInWithEmailAndPassword, 
-            createUserWithEmailAndPassword, 
-            onAuthStateChanged, 
-            signOut,
-            sendEmailVerification 
+            getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, 
+            onAuthStateChanged, signOut, sendEmailVerification 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
@@ -133,7 +132,7 @@
 
         let isSignup = false;
 
-        // 1. TCHEKE SI MOUN NAN KONEKTE OSWA SI EMAIL LI VERIFIE
+        // 1. GESTION ETAT KONEKSYON
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 if (user.emailVerified) {
@@ -141,76 +140,58 @@
                     loadUserData(user.uid);
                     loadChallenges();
                 } else {
-                    // Si li konekte men li pa verifie email, nou kenbe l nan auth-page
+                    switchPage('auth-page');
+                    alert("Tanpri verifye email ou! Nou voye yon link ba ou.");
                     signOut(auth);
-                    alert("Tanpri al nan email ou pou klike sou link verifikasyon an avan ou konekte.");
                 }
             } else {
                 switchPage('auth-page');
             }
         });
 
-        // 2. TOGGLE ANT KONEKSYON AK ENSKRIPSYON
+        // 2. TOGGLE UI
         document.getElementById('toggle-btn').onclick = () => {
             isSignup = !isSignup;
             document.getElementById('signup-fields').classList.toggle('hidden');
             document.getElementById('mode-title').innerText = isSignup ? "Kreyasyon Kont" : "Koneksyon";
-            document.getElementById('main-btn').innerText = isSignup ? "VÈRIFYE EMAIL" : "KONEKTE";
+            document.getElementById('main-btn').innerText = isSignup ? "ENSKRI & VÈRIFYE" : "KONEKTE";
             document.getElementById('toggle-text').innerText = isSignup ? "Gen kont deja?" : "Poko gen kont?";
             document.getElementById('toggle-btn').innerText = isSignup ? "Konekte" : "Kreyel isit la";
         };
 
-        // 3. AKSYON PRENSIPAL (KONEKTE OUBYEN ENSKRI)
+        // 3. AKSYON LOGIN / SIGNUP
         document.getElementById('main-btn').onclick = async () => {
             const email = document.getElementById('email').value;
             const pass = document.getElementById('password').value;
 
+            if (!email || !pass) return alert("Rempli tout chan yo!");
+
             if (!isSignup) {
-                // LOGIK KONEKSYON
                 try {
                     await signInWithEmailAndPassword(auth, email, pass);
-                } catch (e) {
-                    alert("Erè: Email oswa Modpas la pa kòrèk.");
-                }
+                } catch (e) { alert("Erè: " + e.message); }
             } else {
-                // LOGIK ENSKRIPSYON + VERIFIKASYON PA LINK
                 const username = document.getElementById('username').value;
                 const phone = document.getElementById('phone').value;
-                
-                if (!username || !phone || !email || !pass) return alert("Tout chan yo obligatwa!");
+                if (!username || !phone) return alert("Username ak Telefòn obligatwa!");
 
                 try {
                     const res = await createUserWithEmailAndPassword(auth, email, pass);
-                    
-                    // Voye link verifikasyon an
                     await sendEmailVerification(res.user);
-                    
-                    // Sove enfòmasyon nan Database
                     await set(ref(db, `users/${res.user.uid}`), {
-                        username: username,
-                        email: email,
-                        phone: phone,
-                        balance: 0,
-                        role: "player",
-                        stats: { wins: 0, losses: 4 }
+                        username, email, phone, balance: 0, stats: { wins: 0, losses: 0 }
                     });
-
-                    alert("Kont la kreye! Yon link verifikasyon voye nan email ou. Klike sou li pou w ka konekte.");
-                    signOut(auth); // Dekonekte l pou fòse l al verifie email la
-                    window.location.reload();
-                } catch (e) {
-                    alert("Erè ensripsyon: " + e.message);
-                }
+                    alert("Kont kreye! Ale nan imel ou pou w konfime link lan.");
+                    signOut(auth);
+                } catch (e) { alert("Erè: " + e.message); }
             }
         };
 
-        // 4. CHAJMAN DONE AN TAN REYÈL
+        // 4. DONE DINAMIK
         function loadUserData(uid) {
             onValue(ref(db, `users/${uid}`), (snap) => {
                 const data = snap.val();
-                if (data) {
-                    document.getElementById('user-balance').innerText = data.balance.toLocaleString();
-                }
+                if (data) document.getElementById('user-balance').innerText = data.balance.toLocaleString();
             });
         }
 
@@ -223,27 +204,34 @@
                     Object.keys(data).forEach(id => {
                         const c = data[id];
                         list.innerHTML += `
-                            <div class="glass-card p-4 rounded-3xl flex justify-between items-center animate__animated animate__fadeInUp border-l-4 border-blue-500">
+                            <div class="glass-card p-4 rounded-3xl flex justify-between items-center animate__animated animate__fadeInUp">
                                 <div>
                                     <h4 class="font-black text-blue-400 italic">${c.game}</h4>
-                                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">Mèt: ${c.creator_name}</p>
-                                    <p class="text-lg font-black mt-1 text-green-400">${c.bet_amount} <span class="text-[10px]">HTG</span></p>
+                                    <p class="text-[10px] text-gray-400">Pa: ${c.creator_name}</p>
+                                    <p class="text-lg font-black text-green-400">${c.bet_amount} HTG</p>
                                 </div>
-                                <button class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-2xl text-xs font-black shadow-lg transition-all active:scale-90 uppercase">Rejwenn</button>
+                                <button class="bg-blue-600 px-5 py-2 rounded-xl text-[10px] font-black uppercase">Rejwenn</button>
                             </div>
                         `;
                     });
                 } else {
-                    list.innerHTML = `<div class="p-8 text-center opacity-50 italic text-sm">Pa gen pari disponib pou kounye a...</div>`;
+                    list.innerHTML = `<p class="text-center opacity-40 text-xs">Pa gen defi...</p>`;
                 }
             });
         }
 
-        // 5. NAVIGATION SWITCH
+        // 5. NAV SWITCH (FIXED)
         window.switchPage = (pageId) => {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('page-active'));
-            document.getElementById(pageId).classList.add('page-active');
+            // Kache tout paj
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('page-active');
+            });
             
+            // Montre paj ki mande a
+            const activePage = document.getElementById(pageId);
+            activePage.classList.add('page-active');
+
+            // Jere Nav la
             const nav = document.getElementById('bottom-nav');
             if (pageId === 'auth-page') {
                 nav.classList.add('hidden');
@@ -253,7 +241,6 @@
         };
 
         window.signOutUser = () => signOut(auth);
-
     </script>
 </body>
 </html>
